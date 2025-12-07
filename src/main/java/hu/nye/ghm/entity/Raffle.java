@@ -1,27 +1,34 @@
 package hu.nye.ghm.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
+@Getter
+@Setter
 @Entity(name = "RAFFLE")
 @NoArgsConstructor
 @AllArgsConstructor
 public class Raffle {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column
     private String name;
 
+    @ManyToMany
+    @ToString.Exclude
+    @JoinTable(
+            name="raffle_players",
+            joinColumns = @JoinColumn(name = "raffle_id"),
+            inverseJoinColumns = @JoinColumn(name = "player_id"))
+    private List<Player> players = new ArrayList<>();
 
-    @OneToMany(targetEntity = Player.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<Player> players;
-
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
+    @ToString.Exclude
     @JoinColumn(name = "prize_id")
     private Prize prize;
 }

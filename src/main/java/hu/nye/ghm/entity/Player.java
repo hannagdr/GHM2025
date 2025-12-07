@@ -1,10 +1,10 @@
 package hu.nye.ghm.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -13,8 +13,8 @@ import lombok.Setter;
 @Entity(name = "PLAYER")
 public class Player {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column
     private String playerName;
@@ -22,7 +22,7 @@ public class Player {
     @Column
     private String emailAddress;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "raffle_id")
-    private Raffle raffle;
+    @ToString.Exclude
+    @ManyToMany(mappedBy = "players")
+    private List<Raffle> raffle = new ArrayList<>();
 }

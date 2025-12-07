@@ -1,11 +1,9 @@
 package hu.nye.ghm.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -15,7 +13,7 @@ import java.util.List;
 @Entity(name = "PRIZE")
 public class Prize {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column
@@ -24,6 +22,7 @@ public class Prize {
     @Column
     private String category;
 
-    @OneToMany(targetEntity = Player.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Raffle> raffles;
+    @ToString.Exclude
+    @OneToMany(mappedBy="prize")
+    private List<Raffle> raffles = new ArrayList<>();
 }
