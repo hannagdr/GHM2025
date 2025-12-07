@@ -25,7 +25,7 @@ public class Raffle {
             name="raffle_players",
             joinColumns = @JoinColumn(name = "raffle_id"),
             inverseJoinColumns = @JoinColumn(name = "player_id"))
-    private List<Player> players = new ArrayList<>();
+    private List<RaffleUser> players = new ArrayList<>();
 
     @ManyToOne
     @ToString.Exclude

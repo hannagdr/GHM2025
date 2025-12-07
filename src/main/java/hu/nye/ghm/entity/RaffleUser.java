@@ -10,17 +10,23 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "PLAYER")
-public class Player {
+@Entity(name = "RAFFLE_PLAYER")
+public class RaffleUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
-    private String playerName;
+    @Column(unique = true, nullable = false)
+    private String userName;
+
+    @Column(unique = true, nullable = false)
+    private String emailAddress;
 
     @Column
-    private String emailAddress;
+    private String name;
+
+    @Column(nullable = false)
+    private String password;
 
     @ToString.Exclude
     @ManyToMany(mappedBy = "players")

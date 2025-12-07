@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:form="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Home</title>
+</head>
+<body>
+
+<div sec:authorize="isAuthenticated() && hasRole('USER')">
+    <h1>Welcome, <span sec:authentication="name">User</span>!</h1>
+    <p>You have successfully logged in from the database.</p>
+
+    <!--    Ez itt csak példa:-->
+    <form:form method="POST"
+               action="/raffle" modelAttribute="newRaffle">
+        <table>
+            <tr>
+                <td>
+                    <form:label path="name">Name</form:label>
+                </td>
+                <td>
+                    <form:input path="name"/>
+                </td>
+            </tr>
+            <tr>
+                <td><input type="submit" value="Submit"/></td>
+            </tr>
+        </table>
+    </form:form>
+
+
+    <form th:action="@{/logout}" method="post">
+        <button type="submit">Logout</button>
+    </form>
+</div>
+</body>
+</html>
