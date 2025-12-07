@@ -22,7 +22,7 @@ public class RaffleUserDetailsService implements UserDetailsService {
         return User.builder()
                 .username(raffleUser.getUserName())
                 .password(raffleUser.getPassword())
-                .roles("USER")
+                .roles(raffleUser.getRoles().toArray(new String[0]))
                 .build();
     }
 }

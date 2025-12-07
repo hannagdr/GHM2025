@@ -1,10 +1,10 @@
-package hu.nye.ghm.model;
+package hu.nye.ghm.controller.requests;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class CreateRaffle {
+public class CreateRaffleRequest {
     private String raffleName;
 }

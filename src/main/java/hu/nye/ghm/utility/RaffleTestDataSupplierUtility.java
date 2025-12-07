@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -30,11 +31,13 @@ public class RaffleTestDataSupplierUtility {
         Raffle raffleCellphone = raffleRepository.save(new Raffle(null, "Hív a szerencse: Zsebre vágható csúcstechnika!", new ArrayList<>(), null));
 
         RaffleUser userOne = raffleUserRepository.save(new RaffleUser(null, "test.elek",
-                "test.elek@mail.eu", "Test Elek", encoder.encode("test01"), new ArrayList<>()));
+                "test.elek@mail.eu", "Test Elek", encoder.encode("test01"), Set.of("USER"), new ArrayList<>()));
         RaffleUser userTwo = raffleUserRepository.save(new RaffleUser(null, "test.etel",
-                "test.etel@mail.eu", "Test Etel", encoder.encode("test01"), new ArrayList<>()));
+                "test.etel@mail.eu", "Test Etel", encoder.encode("test01"), Set.of("USER"), new ArrayList<>()));
         RaffleUser userThree = raffleUserRepository.save(new RaffleUser(null, "test.eugen",
-                "test.eugen@mail.eu", "Test Eugén", encoder.encode("test01"), new ArrayList<>()));
+                "test.eugen@mail.eu", "Test Eugén", encoder.encode("test01"), Set.of("USER"), new ArrayList<>()));
+        RaffleUser adminUser = raffleUserRepository.save(new RaffleUser(null, "admin",
+                "admin@mail.eu", "Admin Aladár", encoder.encode("admin"), Set.of("USER", "ADMIN"), new ArrayList<>()));
 
         Prize ps5Pro = prizeRepository.save(new Prize(null, "Playstation 5 Pro", "Játékkonzol", new ArrayList<>()));
         Prize appleIphone17 = prizeRepository.save(new Prize(null, "Apple iPhone 17 Pro Max 2TB", "Mobiltelefon", new ArrayList<>()));
