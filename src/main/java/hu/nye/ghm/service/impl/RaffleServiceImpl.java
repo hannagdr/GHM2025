@@ -1,7 +1,9 @@
-package hu.nye.ghm.service;
+package hu.nye.ghm.service.impl;
 
-import hu.nye.ghm.entity.Raffle;
+import hu.nye.ghm.domain.Raffle;
 import hu.nye.ghm.repository.RaffleRepository;
+import hu.nye.ghm.service.RaffleService;
+import hu.nye.ghm.web.dto.response.RaffleIdNameResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,15 +16,15 @@ public class RaffleServiceImpl implements RaffleService {
     private final RaffleRepository repository;
 
     @Override
-    public List<RaffleDTO> getAllRaffles() {
+    public List<RaffleIdNameResponse> getAllRaffles() {
         Iterable<Raffle> raffles = repository.findAll();
-        List<RaffleDTO> raffleDTOs = new ArrayList<>();
+        List<RaffleIdNameResponse> raffleIdNameResponses = new ArrayList<>();
 
         for (Raffle raffle : raffles) {
-            raffleDTOs.add(new RaffleDTO(raffle.getId(), raffle.getName()));
+            raffleIdNameResponses.add(new RaffleIdNameResponse(raffle.getId(), raffle.getName()));
         }
 
-        return raffleDTOs;
+        return raffleIdNameResponses;
     }
 
     public void createNewRaffle(String raffleName) {

@@ -1,8 +1,8 @@
 package hu.nye.ghm.utility;
 
-import hu.nye.ghm.entity.Prize;
-import hu.nye.ghm.entity.Raffle;
-import hu.nye.ghm.entity.RaffleUser;
+import hu.nye.ghm.domain.Prize;
+import hu.nye.ghm.domain.Raffle;
+import hu.nye.ghm.domain.RaffleUser;
 import hu.nye.ghm.repository.PrizeRepository;
 import hu.nye.ghm.repository.RaffleRepository;
 import hu.nye.ghm.repository.RaffleUserRepository;

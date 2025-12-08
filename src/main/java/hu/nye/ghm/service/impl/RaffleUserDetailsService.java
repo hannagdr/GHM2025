@@ -1,6 +1,6 @@
-package hu.nye.ghm.service;
+package hu.nye.ghm.service.impl;
 
-import hu.nye.ghm.entity.RaffleUser;
+import hu.nye.ghm.domain.RaffleUser;
 import hu.nye.ghm.repository.RaffleUserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.User;

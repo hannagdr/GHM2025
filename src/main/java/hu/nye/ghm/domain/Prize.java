@@ -1,4 +1,4 @@
-package hu.nye.ghm.entity;
+package hu.nye.ghm.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
