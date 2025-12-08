@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+<head>
+    <title>Home</title>
+</head>
+<body>
+
+<div sec:authorize="hasRole('USER')">
+    <h1>Welcome, <span sec:authentication="name">User</span>!</h1>
+    <p>You have successfully logged in from the database.</p>
+
+    <form sec:authorize="hasRole('ADMIN')" method="POST"
+          th:action="@{/raffle}" modelAttribute="newRaffle">
+        <label for="name"><strong>Name</strong></label>
+        <input type="text" id="name" name="raffleName" required>
+        <button type="submit">Submit</button>
+    </form>
+
+    <table>
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="raffle, stat : ${raffles}">
+            <td th:text="${raffle.id}">raffle_ID</td>
+            <td th:text="${raffle.name}">raffle_name</td>
+            <td>
+                <a th:href="@{/raffle/{id}(id=${raffle.id})}">View</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <form th:action="@{/logout}" method="post">
+        <button type="submit">Logout</button>
+    </form>
+</div>
+</body>
+</html>
