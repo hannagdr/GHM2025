@@ -30,4 +30,24 @@ public class RaffleServiceImpl implements RaffleService {
     public void createNewRaffle(String raffleName) {
         repository.save(new Raffle(null, raffleName, new ArrayList<>(), null));
     }
+
+    @Override
+    public void drawRaffle(Long raffleId) {
+        throw new RuntimeException("drawRaffle is not implemented");
+    }
+
+    @Override
+    public void closeRaffle(Long raffleId) {
+        throw new RuntimeException("closeRaffle is not implemented");
+    }
+
+    @Override
+    public void addPrizeToRaffle(Long raffleId, Long prizeId) {
+        throw new RuntimeException("addPrizeToRaffle is not implemented");
+    }
+
+    @Override
+    public void addNewPrizeToRaffle(Long raffleId, String prizeName) {
+        throw new RuntimeException("addNewPrizeToRaffle is not implemented");
+    }
 }

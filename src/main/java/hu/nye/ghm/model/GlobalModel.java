@@ -8,11 +8,19 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 
 import java.util.List;
 
+/**
+ * A globálisan elérhető változókat tartalmazó osztály
+ */
 @ControllerAdvice
 @RequiredArgsConstructor
 public class GlobalModel {
     private final RaffleService raffleService;
 
+    /**
+     * Hozzáadja a "raffles" globálisan elérhető változóhoz a tombolák listáját
+     *
+     * @return A tombolák azonosító - név párosa
+     */
     @ModelAttribute("raffles")
     public List<RaffleIdNameResponse> raffles() {
         return raffleService.getAllRaffles();
