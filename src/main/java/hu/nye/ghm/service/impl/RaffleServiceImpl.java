@@ -27,6 +27,7 @@ public class RaffleServiceImpl implements RaffleService {
         return raffleIdNameResponses;
     }
 
+    @Override
     public void createNewRaffle(String raffleName) {
         repository.save(new Raffle(null, raffleName, new ArrayList<>(), null));
     }
