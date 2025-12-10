@@ -16,11 +16,21 @@ public class AuthController {
         return "login";
     }
 
+    @GetMapping("/register")
+    public String register() {
+        return "register";
+    }
+
     /**
      * Beállítja, hogy az alap URL melyik Template-et állítsa be
      */
     @GetMapping("/")
     public String home() {
         return "home";
+    }
+
+    @GetMapping("/raffleview")
+    public String raffleview() {
+        return "raffleview";
     }
 }

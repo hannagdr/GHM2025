@@ -1,45 +1,72 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
->
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <title>Home</title>
+    <!-- Bootstrap CSS via CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
+<body class="bg-light">
 
-<div sec:authorize="hasRole('USER')">
-    <h1>Welcome, <span sec:authentication="name">User</span>!</h1>
-    <p>You have successfully logged in from the database.</p>
+<div class="container mt-5" sec:authorize="hasRole('USER')">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h1 class="mb-3">Welcome, <span sec:authentication="name">User</span>!</h1>
+                    <p class="text-muted">You have successfully logged in.</p>
 
-    <form sec:authorize="hasRole('ADMIN')" method="POST"
-          th:action="@{/raffle}" modelAttribute="newRaffle">
-        <label for="name"><strong>Name</strong></label>
-        <input type="text" id="name" name="raffleName" required>
-        <button type="submit">Submit</button>
-    </form>
+                    <!-- Admin-only raffle form -->
+                    <div sec:authorize="hasRole('ADMIN')" class="mb-4">
+                        <h4>Create New Raffle</h4>
+                        <form method="POST" th:action="@{/raffle}" modelAttribute="newRaffle">
+                            <div class="mb-3">
+                                <label for="name" class="form-label"><strong>Name</strong></label>
+                                <input type="text" id="name" name="raffleName" class="form-control" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
 
-    <table>
-        <thead>
-        <tr>
-            <th>#</th>
-            <th>Name</th>
-            <th>Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="raffle, stat : ${raffles}">
-            <td th:text="${raffle.id}">raffle_ID</td>
-            <td th:text="${raffle.name}">raffle_name</td>
-            <td>
-                <a th:href="@{/raffle/{id}(id=${raffle.id})}">View</a>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+                    <!-- Raffle table -->
+                    <h4 class="mb-3">Available Raffles</h4>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover">
+                            <thead class="table-dark">
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="raffle, stat : ${raffles}">
+                                <td th:text="${raffle.id}">raffle_ID</td>
+                                <td th:text="${raffle.name}">raffle_name</td>
+                                <td>
+                                    <a th:href="@{/raffle/{id}(id=${raffle.id})}"
+                                       class="btn btn-sm btn-outline-primary">View</a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="d-flex justify-content-between mt-3">
+                        <!-- View Winners button on the left -->
+                        <a th:href="@{/winners}" class="btn btn-info">View Winners</a>
 
-    <form th:action="@{/logout}" method="post">
-        <button type="submit">Logout</button>
-    </form>
+                        <!-- Logout button on the right -->
+                        <form th:action="@{/logout}" method="post">
+                            <button type="submit" class="btn btn-danger">Logout</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+<!-- Bootstrap JS via CDN -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
