@@ -4,6 +4,7 @@ import hu.nye.ghm.domain.Raffle;
 import hu.nye.ghm.repository.RaffleRepository;
 import hu.nye.ghm.service.RaffleService;
 import hu.nye.ghm.web.dto.response.RaffleIdNameResponse;
+import hu.nye.ghm.web.dto.response.RaffleState;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +22,13 @@ public class RaffleServiceImpl implements RaffleService {
         List<RaffleIdNameResponse> raffleIdNameResponses = new ArrayList<>();
 
         for (Raffle raffle : raffles) {
-            raffleIdNameResponses.add(new RaffleIdNameResponse(raffle.getId(), raffle.getName(), raffle.isClosed()));
+            RaffleState raffleState = RaffleState.OPEN;
+            if (raffle.isClosed() && raffle.getWinner() == null) {
+                raffleState = RaffleState.CANCELED;
+            } else if (raffle.isClosed()) {
+                raffleState = RaffleState.CLOSED;
+            }
+            raffleIdNameResponses.add(new RaffleIdNameResponse(raffle.getId(), raffle.getName(), raffleState));
         }
 
         return raffleIdNameResponses;
