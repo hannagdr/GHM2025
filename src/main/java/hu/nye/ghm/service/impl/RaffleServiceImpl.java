@@ -21,7 +21,7 @@ public class RaffleServiceImpl implements RaffleService {
         List<RaffleIdNameResponse> raffleIdNameResponses = new ArrayList<>();
 
         for (Raffle raffle : raffles) {
-            raffleIdNameResponses.add(new RaffleIdNameResponse(raffle.getId(), raffle.getName()));
+            raffleIdNameResponses.add(new RaffleIdNameResponse(raffle.getId(), raffle.getName(), raffle.isClosed()));
         }
 
         return raffleIdNameResponses;
@@ -29,7 +29,7 @@ public class RaffleServiceImpl implements RaffleService {
 
     @Override
     public void createNewRaffle(String raffleName) {
-        repository.save(new Raffle(null, raffleName, new ArrayList<>(), null));
+        repository.save(Raffle.builder().name(raffleName).build());
     }
 
     @Override

@@ -8,6 +8,7 @@ import java.util.List;
 
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name = "PRIZE")
@@ -22,6 +23,7 @@ public class Prize {
     @Column
     private String category;
 
+    @Builder.Default
     @ToString.Exclude
     @OneToMany(mappedBy="prize")
     private List<Raffle> raffles = new ArrayList<>();
