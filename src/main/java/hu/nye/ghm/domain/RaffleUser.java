@@ -9,6 +9,7 @@ import java.util.Set;
 
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name = "RAFFLE_PLAYER")
@@ -30,9 +31,16 @@ public class RaffleUser {
     private String password;
 
     @Column
-    private Set<String> roles;
+    @Builder.Default
+    private Set<String> roles = Set.of("USER");
 
+    @Builder.Default
     @ToString.Exclude
     @ManyToMany(mappedBy = "players")
     private List<Raffle> raffle = new ArrayList<>();
+
+    @Builder.Default
+    @ToString.Exclude
+    @OneToMany(mappedBy = "winner")
+    private List<Raffle> wonRaffles = new ArrayList<>();
 }

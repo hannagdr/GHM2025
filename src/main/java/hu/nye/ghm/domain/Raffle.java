@@ -8,6 +8,7 @@ import java.util.List;
 
 @Getter
 @Setter
+@Builder
 @Entity(name = "RAFFLE")
 @NoArgsConstructor
 @AllArgsConstructor
@@ -19,7 +20,17 @@ public class Raffle {
     @Column
     private String name;
 
+    @Column
+    @Builder.Default
+    private boolean closed = false;
+
+    @ManyToOne
+    @ToString.Exclude
+    @JoinColumn(name = "winner_id")
+    private RaffleUser winner;
+
     @ManyToMany
+    @Builder.Default
     @ToString.Exclude
     @JoinTable(
             name="raffle_players",

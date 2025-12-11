@@ -11,7 +11,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -26,22 +25,40 @@ public class RaffleTestDataSupplierUtility {
     @PostConstruct
     public void setup() {
         deleteAllData();
-        Raffle raffleSmartWatch = raffleRepository.save(new Raffle(null, "Most jött el a Te időd: Csuklódra szabott szerencse!", new ArrayList<>(), null));
-        Raffle raffleConsole = raffleRepository.save(new Raffle(null, "Lépj szintet a szórakozásban – Tiéd lehet a csúcskonzol!", new ArrayList<>(), null));
-        Raffle raffleCellphone = raffleRepository.save(new Raffle(null, "Hív a szerencse: Zsebre vágható csúcstechnika!", new ArrayList<>(), null));
 
-        RaffleUser userOne = raffleUserRepository.save(new RaffleUser(null, "test.elek",
-                "test.elek@mail.eu", "Test Elek", encoder.encode("test01"), Set.of("USER"), new ArrayList<>()));
-        RaffleUser userTwo = raffleUserRepository.save(new RaffleUser(null, "test.etel",
-                "test.etel@mail.eu", "Test Etel", encoder.encode("test01"), Set.of("USER"), new ArrayList<>()));
-        RaffleUser userThree = raffleUserRepository.save(new RaffleUser(null, "test.eugen",
-                "test.eugen@mail.eu", "Test Eugén", encoder.encode("test01"), Set.of("USER"), new ArrayList<>()));
-        RaffleUser adminUser = raffleUserRepository.save(new RaffleUser(null, "admin",
-                "admin@mail.eu", "Admin Aladár", encoder.encode("admin"), Set.of("USER", "ADMIN"), new ArrayList<>()));
+        Raffle raffleSmartWatch = raffleRepository.save(Raffle.builder().name("Most jött el a Te időd: Csuklódra szabott szerencse!").closed(true).build());
+        Raffle raffleConsole = raffleRepository.save(Raffle.builder().name("Lépj szintet a szórakozásban – Tiéd lehet a csúcskonzol!").build());
+        Raffle raffleCellphone = raffleRepository.save(Raffle.builder().name("Hív a szerencse: Zsebre vágható csúcstechnika!").build());
 
-        Prize ps5Pro = prizeRepository.save(new Prize(null, "Playstation 5 Pro", "Játékkonzol", new ArrayList<>()));
-        Prize appleIphone17 = prizeRepository.save(new Prize(null, "Apple iPhone 17 Pro Max 2TB", "Mobiltelefon", new ArrayList<>()));
-        Prize garminSmartWatch = prizeRepository.save(new Prize(null, "Garmin fēnix® 51mm AMOLED", "Okosóra", new ArrayList<>()));
+        RaffleUser userOne = raffleUserRepository.save(RaffleUser.builder()
+                .userName("test.elek")
+                .emailAddress("test.elek@mail.eu")
+                .name("Test Elek")
+                .password(encoder.encode("test01"))
+                .build());
+        RaffleUser userTwo = raffleUserRepository.save(RaffleUser.builder()
+                .userName("test.etel")
+                .emailAddress("test.etel@mail.eu")
+                .name("Test Etel")
+                .password(encoder.encode("test01"))
+                .build());
+        RaffleUser userThree = raffleUserRepository.save(RaffleUser.builder()
+                .userName("test.eugen")
+                .emailAddress("test.eugen@mail.eu")
+                .name("Test Eugen")
+                .password(encoder.encode("test01"))
+                .build());
+        RaffleUser adminUser = raffleUserRepository.save(RaffleUser.builder()
+                .userName("admin")
+                .emailAddress("admin@mail.eu")
+                .name("Admin Aladár")
+                .password(encoder.encode("admin"))
+                .roles(Set.of("USER", "ADMIN"))
+                .build());
+
+        Prize ps5Pro = prizeRepository.save(Prize.builder().name("Playstation 5 Pro").category("Játékkonzol").build());
+        Prize appleIphone17 = prizeRepository.save(Prize.builder().name("Apple iPhone 17 Pro Max 2TB").category("Mobiltelefon").build());
+        Prize garminSmartWatch = prizeRepository.save(Prize.builder().name("Garmin fēnix® 51mm AMOLED").category("Okosóra").build());
 
         raffleSmartWatch.getPlayers().add(userOne);
         raffleSmartWatch.setPrize(garminSmartWatch);

@@ -1,45 +1,92 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
->
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <title>Home</title>
+    <!-- Bootstrap CSS via CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .apply-button {
+            background-color: #DDFF99;
+            color: black;
+            border-color: #99E600;
+        }
+
+        .apply-button:hover {
+            background-color: #99E600;
+            border-color: #99E600;
+            color: black;
+        }
+    </style>
 </head>
-<body>
+<body class="bg-light">
 
-<div sec:authorize="hasRole('USER')">
-    <h1>Welcome, <span sec:authentication="name">User</span>!</h1>
-    <p>You have successfully logged in from the database.</p>
+<div class="container mt-5" sec:authorize="hasRole('USER')">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h1 class="mb-3">Welcome, <span sec:authentication="name">User</span>!</h1>
+                    <p class="text-muted">You have successfully logged in.</p>
+                    <!-- Raffle table -->
+                    <h4 class="mb-3">Available Raffles</h4>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover">
+                            <thead class="table-dark">
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Name</th>
+                                <th scope="col"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="raffle, stat : ${raffles}">
+                                <td th:text="${raffle.id}">raffle_ID</td>
+                                <td th:text="${raffle.name}">raffle_name</td>
+                                <td class="text-center align-middle">
+                                    <a th:href="@{/raffle/{id}(id=${raffle.id})}"
+                                       class="btn btn-sm btn-outline-primary">View</a>
+                                    <a th:href="@{/raffle/{id}(id=${raffle.id})}"
+                                       th:text="${raffle.state == T(hu.nye.ghm.web.dto.response.RaffleState).OPEN} ? 'Apply' : (${raffle.state == T(hu.nye.ghm.web.dto.response.RaffleState).CANCELED} ? 'Canceled' : 'Closed')"
+                                       th:classappend="${raffle.state != T(hu.nye.ghm.web.dto.response.RaffleState).OPEN} ? 'disabled' : ''"
+                                       class="btn btn-sm btn-outline-primary apply-button">Button text placeholder</a>
+                                    <a sec:authorize="hasRole('ADMIN')"
+                                       th:href="@{/raffle/{id}(id=${raffle.id})}"
+                                       th:text="Edit"
+                                       th:hidden="${raffle.state != T(hu.nye.ghm.web.dto.response.RaffleState).OPEN}"
+                                       class="btn btn-sm btn-primary">Button text placeholder</a>
+                                    <a sec:authorize="hasRole('ADMIN')"
+                                       th:href="@{/raffle/{id}(id=${raffle.id})}"
+                                       th:text="Draw"
+                                       th:hidden="${raffle.state != T(hu.nye.ghm.web.dto.response.RaffleState).OPEN}"
+                                       class="btn btn-sm btn-primary">Button text placeholder</a>
+                                    <a sec:authorize="hasRole('ADMIN')"
+                                       th:href="@{/raffle/{id}(id=${raffle.id})}"
+                                       th:text="Cancel"
+                                       th:hidden="${raffle.state != T(hu.nye.ghm.web.dto.response.RaffleState).OPEN}"
+                                       class="btn btn-sm btn-danger">Button text placeholder</a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="d-flex mt-3"
+                         th:classappend="${#authorization.expression('hasRole(''ADMIN'')')} ? 'justify-content-between' : 'justify-content-end'">
+                        <!-- View Winners button on the left -->
+                        <a sec:authorize="hasRole('ADMIN')" th:href="@{/raffle}" class="btn btn-info">Create Raffle</a>
 
-    <form sec:authorize="hasRole('ADMIN')" method="POST"
-          th:action="@{/raffle}" modelAttribute="newRaffle">
-        <label for="name"><strong>Name</strong></label>
-        <input type="text" id="name" name="raffleName" required>
-        <button type="submit">Submit</button>
-    </form>
-
-    <table>
-        <thead>
-        <tr>
-            <th>#</th>
-            <th>Name</th>
-            <th>Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="raffle, stat : ${raffles}">
-            <td th:text="${raffle.id}">raffle_ID</td>
-            <td th:text="${raffle.name}">raffle_name</td>
-            <td>
-                <a th:href="@{/raffle/{id}(id=${raffle.id})}">View</a>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-
-    <form th:action="@{/logout}" method="post">
-        <button type="submit">Logout</button>
-    </form>
+                        <!-- Logout button on the right -->
+                        <form th:action="@{/logout}" method="post">
+                            <button type="submit" class="btn btn-danger">Logout</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+<!-- Bootstrap JS via CDN -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

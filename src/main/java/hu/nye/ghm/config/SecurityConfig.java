@@ -16,10 +16,10 @@ public class SecurityConfig {
     private final UserDetailsService userDetailsService;
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) {
         http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/login", "/css/**", "/js/**").permitAll()
+                        .requestMatchers("/login", "/register",  "/css/**", "/js/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
