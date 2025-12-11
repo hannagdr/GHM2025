@@ -1,7 +1,7 @@
 package hu.nye.ghm.model;
 
 import hu.nye.ghm.service.RaffleService;
-import hu.nye.ghm.web.dto.response.RaffleIdNameResponse;
+import hu.nye.ghm.web.dto.RaffleListTableDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -22,7 +22,7 @@ public class GlobalModel {
      * @return A tombolák azonosító - név párosa
      */
     @ModelAttribute("raffles")
-    public List<RaffleIdNameResponse> raffles() {
+    public List<RaffleListTableDTO> raffles() {
         return raffleService.getAllRaffles();
     }
 }
