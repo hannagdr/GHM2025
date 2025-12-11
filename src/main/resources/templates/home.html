@@ -47,23 +47,23 @@
                                     <a th:href="@{/raffle/{id}(id=${raffle.id})}"
                                        class="btn btn-sm btn-outline-primary">View</a>
                                     <a th:href="@{/raffle/{id}(id=${raffle.id})}"
-                                       th:text="${raffle.state == T(hu.nye.ghm.web.dto.response.RaffleState).OPEN} ? 'Apply' : (${raffle.state == T(hu.nye.ghm.web.dto.response.RaffleState).CANCELED} ? 'Canceled' : 'Closed')"
-                                       th:classappend="${raffle.state != T(hu.nye.ghm.web.dto.response.RaffleState).OPEN} ? 'disabled' : ''"
+                                       th:text="${!raffle.closed} ? 'Apply' : (${raffle.canceled} ? 'Canceled' : 'Closed')"
+                                       th:classappend="${raffle.closed} ? 'disabled' : ''"
                                        class="btn btn-sm btn-outline-primary apply-button">Button text placeholder</a>
                                     <a sec:authorize="hasRole('ADMIN')"
                                        th:href="@{/raffle/{id}(id=${raffle.id})}"
                                        th:text="Edit"
-                                       th:hidden="${raffle.state != T(hu.nye.ghm.web.dto.response.RaffleState).OPEN}"
+                                       th:hidden="${raffle.closed}"
                                        class="btn btn-sm btn-primary">Button text placeholder</a>
                                     <a sec:authorize="hasRole('ADMIN')"
                                        th:href="@{/raffle/{id}(id=${raffle.id})}"
                                        th:text="Draw"
-                                       th:hidden="${raffle.state != T(hu.nye.ghm.web.dto.response.RaffleState).OPEN}"
+                                       th:hidden="${raffle.closed}"
                                        class="btn btn-sm btn-primary">Button text placeholder</a>
                                     <a sec:authorize="hasRole('ADMIN')"
                                        th:href="@{/raffle/{id}(id=${raffle.id})}"
                                        th:text="Cancel"
-                                       th:hidden="${raffle.state != T(hu.nye.ghm.web.dto.response.RaffleState).OPEN}"
+                                       th:hidden="${raffle.closed}"
                                        class="btn btn-sm btn-danger">Button text placeholder</a>
                                 </td>
                             </tr>

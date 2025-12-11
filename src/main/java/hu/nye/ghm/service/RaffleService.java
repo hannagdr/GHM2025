@@ -1,6 +1,7 @@
 package hu.nye.ghm.service;
 
-import hu.nye.ghm.web.dto.response.RaffleIdNameResponse;
+import hu.nye.ghm.web.dto.RaffleDTO;
+import hu.nye.ghm.web.dto.RaffleListTableDTO;
 
 import java.util.List;
 
@@ -13,13 +14,14 @@ public interface RaffleService {
      *
      * @return Az összes tombola, ami az adatbázisban található.
      */
-    List<RaffleIdNameResponse> getAllRaffles();
+    List<RaffleListTableDTO> getAllRaffles();
 
     /**
      * Új tombola létrehozása. Az újonnan létrehozott tombolához nincs felhasználó tárolva, illetve jutalom rendelve.
-     * @param raffleName A tombola neve.
+     *
+     * @param raffle A tombola neve.
      */
-    void createNewRaffle(String raffleName);
+    void createNewRaffle(RaffleDTO raffle);
 
     /**
      * Sorsolás indítása a tombolához
