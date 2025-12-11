@@ -28,19 +28,6 @@
                 <div class="card-body">
                     <h1 class="mb-3">Welcome, <span sec:authentication="name">User</span>!</h1>
                     <p class="text-muted">You have successfully logged in.</p>
-
-                    <!-- Admin-only raffle form -->
-                    <div sec:authorize="hasRole('ADMIN')" class="mb-4">
-                        <h4>Create New Raffle</h4>
-                        <form method="POST" th:action="@{/raffle}" modelAttribute="newRaffle">
-                            <div class="mb-3">
-                                <label for="name" class="form-label"><strong>Name</strong></label>
-                                <input type="text" id="name" name="raffleName" class="form-control" required>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </form>
-                    </div>
-
                     <!-- Raffle table -->
                     <h4 class="mb-3">Available Raffles</h4>
                     <div class="table-responsive">
@@ -83,7 +70,11 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="d-flex justify-content-end mt-2">
+                    <div class="d-flex mt-3"
+                         th:classappend="${#authorization.expression('hasRole(''ADMIN'')')} ? 'justify-content-between' : 'justify-content-end'">
+                        <!-- View Winners button on the left -->
+                        <a sec:authorize="hasRole('ADMIN')" th:href="@{/raffle}" class="btn btn-info">Create Raffle</a>
+
                         <!-- Logout button on the right -->
                         <form th:action="@{/logout}" method="post">
                             <button type="submit" class="btn btn-danger">Logout</button>
