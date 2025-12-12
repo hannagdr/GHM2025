@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RaffleDTO {
+    Long id;
     String name;
     Long prizeId;
 }

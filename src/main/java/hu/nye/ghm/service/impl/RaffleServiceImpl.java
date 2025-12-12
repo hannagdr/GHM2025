@@ -36,13 +36,24 @@ public class RaffleServiceImpl implements RaffleService {
 
     @Override
     @Transactional
-    public void createNewRaffle(RaffleDTO raffle) {
-        Optional<Prize> prize = prizeRepository.findById(raffle.getPrizeId());
+    public void createOrUpdateRaffle(RaffleDTO raffleDTO) {
+        Optional<Prize> prize = prizeRepository.findById(raffleDTO.getPrizeId());
         if (prize.isEmpty()) {
             throw new RuntimeException("Cannot find prize with the received id");
         }
-        Raffle newRaffle = Raffle.builder().name(raffle.getName()).prize(prize.get()).build();
-        raffleRepository.save(newRaffle);
+        Raffle raffle;
+        if (raffleDTO.getId() == null) {
+            raffle = Raffle.builder().name(raffleDTO.getName()).prize(prize.get()).build();
+        } else {
+            raffle = raffleRepository.findById(raffleDTO.getId())
+                    .map(rf -> {
+                        rf.setName(raffleDTO.getName());
+                        rf.setPrize(prize.get());
+                        return rf;
+                    })
+                    .orElseThrow(() -> new RuntimeException("Raffle cannot be found by id"));
+        }
+        raffleRepository.save(raffle);
     }
 
     @Override
@@ -63,5 +74,12 @@ public class RaffleServiceImpl implements RaffleService {
     @Override
     public void addNewPrizeToRaffle(Long raffleId, String prizeName) {
         throw new RuntimeException("addNewPrizeToRaffle is not implemented");
+    }
+
+    @Override
+    public RaffleDTO getRaffleById(Long id) {
+        return raffleRepository.findById(id)
+                .map(raffle -> new RaffleDTO(raffle.getId(), raffle.getName(), raffle.getPrize().getId()))
+                .orElseThrow(() -> new RuntimeException(("Raffle cannot be found by id")));
     }
 }

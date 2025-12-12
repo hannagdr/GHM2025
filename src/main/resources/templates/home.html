@@ -51,7 +51,7 @@
                                        th:classappend="${raffle.closed} ? 'disabled' : ''"
                                        class="btn btn-sm btn-outline-primary apply-button">Button text placeholder</a>
                                     <a sec:authorize="hasRole('ADMIN')"
-                                       th:href="@{/raffle/{id}(id=${raffle.id})}"
+                                       th:href="@{/raffle/{id}/edit(id=${raffle.id})}"
                                        th:text="Edit"
                                        th:hidden="${raffle.closed}"
                                        class="btn btn-sm btn-primary">Button text placeholder</a>
