@@ -17,11 +17,11 @@ public interface RaffleService {
     List<RaffleListTableDTO> getAllRaffles();
 
     /**
-     * Új tombola létrehozása. Az újonnan létrehozott tombolához nincs felhasználó tárolva, illetve jutalom rendelve.
+     * Új tombola létrehozása vagy frissítése. Az újonnan létrehozott tombolához nincs felhasználó tárolva, illetve jutalom rendelve.
      *
-     * @param raffle A tombola neve.
+     * @param raffle A tombola neve és hozzárendelt nyeremény.
      */
-    void createNewRaffle(RaffleDTO raffle);
+    void createOrUpdateRaffle(RaffleDTO raffle);
 
     /**
      * Sorsolás indítása a tombolához
@@ -53,4 +53,12 @@ public interface RaffleService {
      * @param prizeName Nyeremény azonosító
      */
     void addNewPrizeToRaffle(Long raffleId, String prizeName);
+
+    /**
+     * A kapott ID alapján visszaadja a Raffle-ből késztített DTO-t ha van ilyen.
+     *
+     * @param id - Raffle ID
+     * @return A létező RaffleDTO
+     */
+    RaffleDTO getRaffleById(Long id);
 }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 /**
@@ -20,8 +21,15 @@ public class RaffleController {
     private final PrizeService prizeService;
 
     @GetMapping("/raffle")
-    public String openNewRafflePage(Model model) {
+    public String newRaffle(Model model) {
         model.addAttribute("raffle", new RaffleDTO());
+        model.addAttribute("prizes", prizeService.getPrizesForComboBox());
+        return "raffle";
+    }
+
+    @GetMapping("/raffle/{id}/edit")
+    public String editRaffle(@PathVariable("id") Long raffleId, Model model) {
+        model.addAttribute("raffle", raffleService.getRaffleById(raffleId));
         model.addAttribute("prizes", prizeService.getPrizesForComboBox());
         return "raffle";
     }
@@ -33,7 +41,7 @@ public class RaffleController {
      */
     @PostMapping("/raffle")
     public String saveRaffle(@ModelAttribute RaffleDTO raffle) {
-        raffleService.createNewRaffle(raffle);
+        raffleService.createOrUpdateRaffle(raffle);
         return "redirect:/";
     }
 }

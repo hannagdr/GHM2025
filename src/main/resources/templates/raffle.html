@@ -12,9 +12,11 @@
         <div class="col-md-6 col-lg-4">
             <div class="card shadow-sm">
                 <div class="card-body">
-                    <h2 class="text-center mb-4">Create new raffle</h2>
+                    <h2 th:text="${raffle.id != null} ? 'Edit raffle' : 'Create new raffle'"
+                        class="text-center mb-4">title.placeholder</h2>
                     <!-- Login form -->
                     <form th:action="@{/raffle}" method="post" th:object="${raffle}">
+                        <input type="hidden" th:field="*{id}"/>
                         <div class="mb-3">
                             <label for="name" class="form-label">Raffle name</label>
                             <input type="text" id="name" class="form-control" required th:field="*{name}">
@@ -29,7 +31,12 @@
                             </select>
                         </div>
                         <div class="d-grid mb-2">
-                            <button type="submit" class="btn btn-primary">Create</button>
+                            <button type="submit" class="btn btn-primary"
+                                    th:text="${raffle.id != null} ? 'Save' : 'Create'">button.submit
+                            </button>
+                        </div>
+                        <div class="d-grid mb-2">
+                            <button type="button" class="btn btn-secondary" onclick="history.back()">Cancel</button>
                         </div>
                     </form>
                 </div>
