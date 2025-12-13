@@ -2,6 +2,7 @@ package hu.nye.ghm.service;
 
 import hu.nye.ghm.web.dto.RaffleDTO;
 import hu.nye.ghm.web.dto.RaffleListTableDTO;
+import hu.nye.ghm.web.dto.RaffleViewDTO;
 
 import java.util.List;
 
@@ -60,5 +61,5 @@ public interface RaffleService {
      * @param id - Raffle ID
      * @return A létező RaffleDTO
      */
-    RaffleDTO getRaffleById(Long id);
+    RaffleViewDTO getRaffleViewData(Long id);
 }
