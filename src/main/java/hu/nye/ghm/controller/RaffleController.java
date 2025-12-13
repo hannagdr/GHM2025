@@ -34,6 +34,12 @@ public class RaffleController {
         return "raffle";
     }
 
+    @GetMapping("/raffle/{id}")
+    public String viewRaffle(@PathVariable("id") Long raffleId, Model model) {
+        model.addAttribute("raffle", raffleService.getRaffleById(raffleId));
+        return "raffle_view";
+    }
+
     /**
      * A kapott paraméter alapján létrehozza a Tombolát, és visszatér a főoldalra.
      *
