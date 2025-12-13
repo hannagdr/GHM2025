@@ -15,5 +15,7 @@ public class RaffleViewDTO {
     Long id;
     String name;
     PrizeDTO prize;
+    boolean closed;
+    boolean canceled;
     List<String> playerNames;
 }

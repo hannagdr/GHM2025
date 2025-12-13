@@ -51,7 +51,7 @@
                                        class="btn btn-sm btn-primary">Button text placeholder</a>
                                     <a sec:authorize="hasRole('ADMIN')"
                                        th:href="@{/raffle/{id}(id=${raffle.id})}"
-                                       th:text="Cancel"
+                                       th:text="Close"
                                        th:hidden="${raffle.closed}"
                                        class="btn btn-sm btn-danger">Button text placeholder</a>
                                 </td>

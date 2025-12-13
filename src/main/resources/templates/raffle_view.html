@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <html>
 <head>
     <title>View Raffle</title>
@@ -24,9 +25,22 @@
         </div>
         <!-- Buttons -->
         <div class="col-md-3 d-flex flex-column justify-content-start gap-2">
-            <button class="btn btn-primary">Draw</button>
-            <button class="btn btn-danger">Close</button>
-            <button class="btn btn-outline-primary apply-button">Apply</button>
+            <button sec:authorize="hasRole('ADMIN')"
+                    th:hidden="${raffle.closed}"
+                    class="btn btn-primary">Draw
+            </button>
+
+            <button sec:authorize="hasRole('ADMIN')"
+                    th:hidden="${raffle.closed}"
+                    class="btn btn-danger">Close
+            </button>
+
+            <button class="btn btn-outline-primary apply-button"
+                    th:classappend="${raffle.closed} ? 'disabled' : ''"
+                    th:hidden="${(#authorization.expression('hasRole(''ADMIN'')')) && !raffle.closed}"
+                    th:text="${!raffle.closed} ? 'Apply' : (${raffle.canceled} ? 'Canceled' : 'Closed')">button.apply
+            </button>
+
             <button class="btn btn-secondary" onclick="history.back()">Back</button>
         </div>
     </div>

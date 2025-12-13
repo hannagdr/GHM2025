@@ -98,6 +98,8 @@ public class RaffleServiceImpl implements RaffleService {
         return RaffleViewDTO.builder()
                 .name(raffle.getName())
                 .id(raffle.getId())
+                .closed(raffle.isClosed())
+                .canceled(raffle.isClosed() && raffle.getWinner() == null)
                 .prize(prizeDTO)
                 .playerNames(playerNames)
                 .build();
