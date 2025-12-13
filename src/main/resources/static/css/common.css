@@ -1,0 +1,11 @@
+.apply-button {
+    background-color: #DDFF99;
+    color: black;
+    border-color: #99E600;
+}
+
+.apply-button:hover {
+    background-color: #99E600;
+    border-color: #99E600;
+    color: black;
+}
