@@ -45,7 +45,7 @@
         </div>
     </div>
 
-    <div class="row">
+    <div class="row" sec:authorize="hasRole('ADMIN')">
         <div class="col">
             <div class="border rounded p-3 bg-light">
                 <h5>List of applicants</h5>
