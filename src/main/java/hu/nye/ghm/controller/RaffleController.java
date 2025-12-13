@@ -29,14 +29,14 @@ public class RaffleController {
 
     @GetMapping("/raffle/{id}/edit")
     public String editRaffle(@PathVariable("id") Long raffleId, Model model) {
-        model.addAttribute("raffle", raffleService.getRaffleById(raffleId));
+        model.addAttribute("raffle", raffleService.getRaffleViewData(raffleId));
         model.addAttribute("prizes", prizeService.getPrizesForComboBox());
         return "raffle";
     }
 
     @GetMapping("/raffle/{id}")
     public String viewRaffle(@PathVariable("id") Long raffleId, Model model) {
-        model.addAttribute("raffle", raffleService.getRaffleById(raffleId));
+        model.addAttribute("raffle", raffleService.getRaffleViewData(raffleId));
         return "raffle_view";
     }
 

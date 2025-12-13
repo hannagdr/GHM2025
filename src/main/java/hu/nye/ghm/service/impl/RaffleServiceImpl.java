@@ -2,11 +2,14 @@ package hu.nye.ghm.service.impl;
 
 import hu.nye.ghm.domain.Prize;
 import hu.nye.ghm.domain.Raffle;
+import hu.nye.ghm.domain.RaffleUser;
 import hu.nye.ghm.repository.PrizeRepository;
 import hu.nye.ghm.repository.RaffleRepository;
 import hu.nye.ghm.service.RaffleService;
+import hu.nye.ghm.web.dto.PrizeDTO;
 import hu.nye.ghm.web.dto.RaffleDTO;
 import hu.nye.ghm.web.dto.RaffleListTableDTO;
+import hu.nye.ghm.web.dto.RaffleViewDTO;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -77,9 +80,26 @@ public class RaffleServiceImpl implements RaffleService {
     }
 
     @Override
-    public RaffleDTO getRaffleById(Long id) {
-        return raffleRepository.findById(id)
-                .map(raffle -> new RaffleDTO(raffle.getId(), raffle.getName(), raffle.getPrize().getId()))
-                .orElseThrow(() -> new RuntimeException(("Raffle cannot be found by id")));
+    public RaffleViewDTO getRaffleViewData(Long id) {
+        Optional<Raffle> raffleOpt = raffleRepository.findById(id);
+        if (raffleOpt.isEmpty()) {
+            throw new RuntimeException("No raffle found with id");
+        }
+        Raffle raffle = raffleOpt.get();
+        Prize prize = raffle.getPrize();
+
+        PrizeDTO prizeDTO = prize == null ? null : PrizeDTO.builder()
+                .category(prize.getCategory())
+                .name(prize.getName())
+                .build();
+
+        List<String> playerNames = raffle.getPlayers().stream().map(RaffleUser::getName).toList();
+
+        return RaffleViewDTO.builder()
+                .name(raffle.getName())
+                .id(raffle.getId())
+                .prize(prizeDTO)
+                .playerNames(playerNames)
+                .build();
     }
 }
