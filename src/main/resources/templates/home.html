@@ -6,6 +6,7 @@
     <!-- Bootstrap CSS via CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link th:href="@{/css/common.css}" rel="stylesheet">
+    <script th:src="@{/js/common.js}"></script>
 </head>
 <body class="bg-light">
 
@@ -34,7 +35,7 @@
                                 <td class="text-center align-middle">
                                     <a th:href="@{/raffle/{id}(id=${raffle.id})}"
                                        class="btn btn-sm btn-outline-primary">View</a>
-                                    <a th:href="@{/raffle/{id}(id=${raffle.id})}"
+                                    <a th:attr="data-id=${raffle.id}"
                                        th:text="${!raffle.closed} ? 'Apply' : (${raffle.canceled} ? 'Canceled' : 'Closed')"
                                        th:classappend="${raffle.closed} ? 'disabled' : ''"
                                        th:hidden="${(#authorization.expression('hasRole(''ADMIN'')')) && !raffle.closed}"
