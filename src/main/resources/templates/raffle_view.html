@@ -34,8 +34,9 @@
             </button>
 
             <button sec:authorize="hasRole('ADMIN')"
+                    th:attr="data-id=${raffle.id}"
                     th:hidden="${raffle.closed}"
-                    class="btn btn-danger">Close
+                    class="btn btn-danger close-button">Close
             </button>
 
             <button class="btn btn-outline-primary apply-button"
