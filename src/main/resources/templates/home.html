@@ -3,9 +3,12 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <title>Home</title>
+    <meta name="_csrf" th:content="${_csrf.token}">
+    <meta name="_csrf_header" th:content="${_csrf.headerName}">
     <!-- Bootstrap CSS via CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link th:href="@{/css/common.css}" rel="stylesheet">
+    <script th:src="@{/js/common.js}"></script>
 </head>
 <body class="bg-light">
 
@@ -34,9 +37,9 @@
                                 <td class="text-center align-middle">
                                     <a th:href="@{/raffle/{id}(id=${raffle.id})}"
                                        class="btn btn-sm btn-outline-primary">View</a>
-                                    <a th:href="@{/raffle/{id}(id=${raffle.id})}"
-                                       th:text="${!raffle.closed} ? 'Apply' : (${raffle.canceled} ? 'Canceled' : 'Closed')"
-                                       th:classappend="${raffle.closed} ? 'disabled' : ''"
+                                    <a th:attr="data-id=${raffle.id}"
+                                       th:text="${!raffle.closed} ? (${raffle.alreadyApplied() ? 'Applied' : 'Apply'}): (${raffle.canceled} ? 'Canceled' : 'Closed')"
+                                       th:classappend="${raffle.closed() || raffle.alreadyApplied()} ? 'disabled' : ''"
                                        th:hidden="${(#authorization.expression('hasRole(''ADMIN'')')) && !raffle.closed}"
                                        class="btn btn-sm btn-outline-primary apply-button">Button text placeholder</a>
                                     <a sec:authorize="hasRole('ADMIN')"

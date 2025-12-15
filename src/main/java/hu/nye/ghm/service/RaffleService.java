@@ -62,4 +62,13 @@ public interface RaffleService {
      * @return A létező RaffleDTO
      */
     RaffleViewDTO getRaffleViewData(Long id);
+
+    /**
+     * Megkeresi a kapott ID és felhasználónév alapján a Raffle-t és RaffleUser-t. Amennyiben mind a kettő létezik,
+     * hozzáadja a User-t a játékosokhoz.
+     *
+     * @param raffleId A Raffle azonosítója
+     * @param userName A felhasználó neve
+     */
+    void applyToRaffle(Long raffleId, String userName);
 }
