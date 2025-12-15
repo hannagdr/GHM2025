@@ -72,8 +72,16 @@ public class RaffleServiceImpl implements RaffleService {
     }
 
     @Override
+    @Transactional
     public void closeRaffle(Long raffleId) {
-        throw new RuntimeException("closeRaffle is not implemented");
+        Optional<Raffle> raffleOpt = raffleRepository.findById(raffleId);
+        if (raffleOpt.isEmpty()) {
+            throw new RuntimeException("Cannot find raffle with ID");
+        }
+        Raffle raffle = raffleOpt.get();
+
+        raffle.setClosed(true);
+        raffleRepository.save(raffle);
     }
 
     @Override
