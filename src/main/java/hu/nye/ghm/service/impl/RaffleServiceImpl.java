@@ -13,10 +13,14 @@ import hu.nye.ghm.web.dto.RaffleListTableDTO;
 import hu.nye.ghm.web.dto.RaffleViewDTO;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -33,7 +37,8 @@ public class RaffleServiceImpl implements RaffleService {
 
         for (Raffle raffle : raffles) {
             boolean isCanceled = raffle.isClosed() && raffle.getWinner() == null;
-            raffleIdNameResponse.add(new RaffleListTableDTO(raffle.getId(), raffle.getName(), raffle.isClosed(), isCanceled));
+            boolean alreadyApplied = isUserAlreadyApplied(raffle);
+            raffleIdNameResponse.add(new RaffleListTableDTO(raffle.getId(), raffle.getName(), raffle.isClosed(), isCanceled, alreadyApplied));
         }
 
         return raffleIdNameResponse;
@@ -96,6 +101,7 @@ public class RaffleServiceImpl implements RaffleService {
                 .build();
 
         List<String> playerNames = raffle.getPlayers().stream().map(RaffleUser::getName).toList();
+        boolean alreadyApplied = isUserAlreadyApplied(raffle);
 
         return RaffleViewDTO.builder()
                 .name(raffle.getName())
@@ -104,7 +110,26 @@ public class RaffleServiceImpl implements RaffleService {
                 .canceled(raffle.isClosed() && raffle.getWinner() == null)
                 .prize(prizeDTO)
                 .playerNames(playerNames)
+                .alreadyApplied(alreadyApplied)
                 .build();
+    }
+
+    private boolean isUserAlreadyApplied(Raffle raffle) {
+        String currentUserName = getCurrentUserName();
+        return raffle.getPlayers().stream()
+                .anyMatch(raffleUser -> Objects.equals(currentUserName, raffleUser.getUserName()));
+    }
+
+    private String getCurrentUserName() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth == null) {
+            throw new RuntimeException("No authentication context found");
+        }
+        User user = (User) auth.getPrincipal();
+        if (user == null) {
+            throw new RuntimeException("No authenticated user found");
+        }
+        return user.getUsername();
     }
 
     @Override

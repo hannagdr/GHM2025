@@ -38,8 +38,8 @@
                                     <a th:href="@{/raffle/{id}(id=${raffle.id})}"
                                        class="btn btn-sm btn-outline-primary">View</a>
                                     <a th:attr="data-id=${raffle.id}"
-                                       th:text="${!raffle.closed} ? 'Apply' : (${raffle.canceled} ? 'Canceled' : 'Closed')"
-                                       th:classappend="${raffle.closed} ? 'disabled' : ''"
+                                       th:text="${!raffle.closed} ? (${raffle.alreadyApplied() ? 'Applied' : 'Apply'}): (${raffle.canceled} ? 'Canceled' : 'Closed')"
+                                       th:classappend="${raffle.closed() || raffle.alreadyApplied()} ? 'disabled' : ''"
                                        th:hidden="${(#authorization.expression('hasRole(''ADMIN'')')) && !raffle.closed}"
                                        class="btn btn-sm btn-outline-primary apply-button">Button text placeholder</a>
                                     <a sec:authorize="hasRole('ADMIN')"

@@ -15,12 +15,4 @@ public class AuthController {
     public String login() {
         return "login";
     }
-
-    /**
-     * Beállítja, hogy az alap URL melyik Template-et állítsa be
-     */
-    @GetMapping("/")
-    public String home() {
-        return "home";
-    }
 }

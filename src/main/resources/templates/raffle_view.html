@@ -40,12 +40,12 @@
 
             <button class="btn btn-outline-primary apply-button"
                     th:attr="data-id=${raffle.id}"
+                    th:disabled="${raffle.isAlreadyApplied()}"
                     th:classappend="${raffle.closed} ? 'disabled' : ''"
                     th:hidden="${(#authorization.expression('hasRole(''ADMIN'')')) && !raffle.closed}"
                     th:text="${!raffle.closed} ? 'Apply' : (${raffle.canceled} ? 'Canceled' : 'Closed')">button.apply
             </button>
-
-            <button class="btn btn-secondary" onclick="history.back()">Back</button>
+            <a th:href="@{/}" class="btn btn-secondary">Back</a>
         </div>
     </div>
 

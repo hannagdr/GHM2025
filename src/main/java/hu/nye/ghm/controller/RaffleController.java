@@ -23,6 +23,15 @@ public class RaffleController {
     private final RaffleService raffleService;
     private final PrizeService prizeService;
 
+    /**
+     * Beállítja, hogy az alap URL a home template-et adja vissza
+     */
+    @GetMapping("/")
+    public String raffleHome(Model model) {
+        model.addAttribute("raffles", raffleService.getAllRaffles());
+        return "home";
+    }
+
     @GetMapping("/raffle")
     public String newRaffle(Model model) {
         model.addAttribute("raffle", new RaffleDTO());
