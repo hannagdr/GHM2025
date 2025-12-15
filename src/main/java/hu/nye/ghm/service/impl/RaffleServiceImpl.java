@@ -5,6 +5,7 @@ import hu.nye.ghm.domain.Raffle;
 import hu.nye.ghm.domain.RaffleUser;
 import hu.nye.ghm.repository.PrizeRepository;
 import hu.nye.ghm.repository.RaffleRepository;
+import hu.nye.ghm.repository.RaffleUserRepository;
 import hu.nye.ghm.service.RaffleService;
 import hu.nye.ghm.web.dto.PrizeDTO;
 import hu.nye.ghm.web.dto.RaffleDTO;
@@ -21,8 +22,9 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class RaffleServiceImpl implements RaffleService {
-    private final RaffleRepository raffleRepository;
     private final PrizeRepository prizeRepository;
+    private final RaffleRepository raffleRepository;
+    private final RaffleUserRepository raffleUserRepository;
 
     @Override
     public List<RaffleListTableDTO> getAllRaffles() {
@@ -103,5 +105,25 @@ public class RaffleServiceImpl implements RaffleService {
                 .prize(prizeDTO)
                 .playerNames(playerNames)
                 .build();
+    }
+
+    @Override
+    @Transactional
+    public void applyToRaffle(Long raffleId, String userName) {
+        Optional<RaffleUser> raffleUserOpt = raffleUserRepository.findByUserName(userName);
+        if (raffleUserOpt.isEmpty()) {
+            throw new RuntimeException("User cannot be found");
+        }
+        RaffleUser raffleUser = raffleUserOpt.get();
+
+        Optional<Raffle> raffleOpt = raffleRepository.findById(raffleId);
+        if (raffleOpt.isEmpty()) {
+            throw new RuntimeException("Raffle cannot be found");
+        }
+
+        Raffle raffle = raffleOpt.get();
+
+        raffle.getPlayers().add(raffleUser);
+        raffleRepository.save(raffle);
     }
 }

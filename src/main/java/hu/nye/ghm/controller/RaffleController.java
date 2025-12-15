@@ -63,7 +63,7 @@ public class RaffleController {
     @PostMapping("/raffle/{id}/apply")
     public String applyToRaffle(@PathVariable("id") Long raffleId, Principal userPrincipal, HttpServletRequest request) {
         String referer = request.getHeader("Referer");
-        System.out.println(raffleId);
+        raffleService.applyToRaffle(raffleId, userPrincipal.getName());
         return "redirect:" + referer;
     }
 }
