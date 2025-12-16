@@ -29,8 +29,9 @@
         <!-- Buttons -->
         <div class="col-md-3 d-flex flex-column justify-content-start gap-2">
             <button sec:authorize="hasRole('ADMIN')"
+                    th:attr="data-id=${raffle.id}"
                     th:hidden="${raffle.closed}"
-                    class="btn btn-primary">Draw
+                    class="btn btn-primary draw-button">Draw
             </button>
 
             <button sec:authorize="hasRole('ADMIN')"
@@ -49,7 +50,15 @@
             <a th:href="@{/}" class="btn btn-secondary">Back</a>
         </div>
     </div>
-
+    <div class="row mb-3" th:hidden="${raffle.canceled}">
+        <div class="d-flex flex-column gap-2">
+            <div class="form-control bg-light text-center" th:text="|Unfortunately, you did not win this time.|">
+                user.someone.else.won
+            </div>
+            <div class="form-control bg-light text-center" th:text="|Congratulations, you WON!|">user.actual.won</div>
+            <div class="form-control bg-light text-center" th:text="|The winner is: ${raffle}|">admin.who.won</div>
+        </div>
+    </div>
     <div class="row" sec:authorize="hasRole('ADMIN')">
         <div class="col">
             <div class="border rounded p-3 bg-light">
