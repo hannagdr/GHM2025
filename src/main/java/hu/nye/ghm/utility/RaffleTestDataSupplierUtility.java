@@ -14,6 +14,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Technikai osztály, hogy alap adatokkal feltöltsük az adatbázist
+ */
 @Service
 @RequiredArgsConstructor
 public class RaffleTestDataSupplierUtility {
