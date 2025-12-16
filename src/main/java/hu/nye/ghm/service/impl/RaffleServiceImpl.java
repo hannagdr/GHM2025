@@ -99,16 +99,6 @@ public class RaffleServiceImpl implements RaffleService {
     }
 
     @Override
-    public void addPrizeToRaffle(Long raffleId, Long prizeId) {
-        throw new RuntimeException("addPrizeToRaffle is not implemented");
-    }
-
-    @Override
-    public void addNewPrizeToRaffle(Long raffleId, String prizeName) {
-        throw new RuntimeException("addNewPrizeToRaffle is not implemented");
-    }
-
-    @Override
     public RaffleViewDTO getRaffleViewData(Long id) {
         Optional<Raffle> raffleOpt = raffleRepository.findById(id);
         if (raffleOpt.isEmpty()) {
