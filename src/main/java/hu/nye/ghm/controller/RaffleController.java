@@ -87,4 +87,16 @@ public class RaffleController {
         raffleService.closeRaffle(raffleId);
         return "redirect:" + referer;
     }
+
+    /**
+     * A Raffle sorsolás elindítása
+     *
+     * @param raffleId A tombola azonosítója
+     */
+    @PostMapping("/raffle/{id}/draw")
+    public String drawRaffle(@PathVariable("id") Long raffleId, HttpServletRequest request) {
+        String referer = request.getHeader("Referer");
+        raffleService.drawRaffle(raffleId);
+        return "redirect:" + referer;
+    }
 }
