@@ -12,11 +12,12 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RaffleViewDTO {
-    Long id;
-    String name;
-    PrizeDTO prize;
-    boolean closed;
-    boolean canceled;
-    boolean alreadyApplied;
-    List<String> playerNames;
+    private Long id;
+    private String name;
+    private PrizeDTO prize;
+    private boolean closed;
+    private boolean canceled;
+    private boolean alreadyApplied;
+    private List<String> playerNames;
+    private String winnerUsername;
 }

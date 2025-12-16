@@ -50,13 +50,24 @@
             <a th:href="@{/}" class="btn btn-secondary">Back</a>
         </div>
     </div>
-    <div class="row mb-3" th:hidden="${raffle.canceled}">
+    <div class="row mb-3" th:hidden="${raffle.winnerUsername == null}">
         <div class="d-flex flex-column gap-2">
-            <div class="form-control bg-light text-center" th:text="|Unfortunately, you did not win this time.|">
+            <div class="form-control bg-light text-center"
+                 sec:authorize="!hasRole('ADMIN')"
+                 th:hidden="${#authentication.getName().equals(raffle.getWinnerUsername())}"
+                 th:text="|Unfortunately, you did not win this time.|">
                 user.someone.else.won
             </div>
-            <div class="form-control bg-light text-center" th:text="|Congratulations, you WON!|">user.actual.won</div>
-            <div class="form-control bg-light text-center" th:text="|The winner is: ${raffle}|">admin.who.won</div>
+            <div class="form-control bg-light text-center"
+                 sec:authorize="!hasRole('ADMIN')"
+                 th:hidden="${!#authentication.getName().equals(raffle.getWinnerUsername())}"
+                 th:text="|Congratulations, you WON!|">user.actual.won
+            </div>
+            <div class="form-control bg-light text-center"
+                 sec:authorize="hasRole('ADMIN')"
+                 th:hidden="${!(raffle.closed && raffle.winnerUsername != null)}"
+                 th:text="|The winner is: ${raffle.winnerUsername}|">admin.who.won
+            </div>
         </div>
     </div>
     <div class="row" sec:authorize="hasRole('ADMIN')">

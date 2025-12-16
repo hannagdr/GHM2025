@@ -133,6 +133,7 @@ public class RaffleServiceImpl implements RaffleService {
                 .prize(prizeDTO)
                 .playerNames(playerNames)
                 .alreadyApplied(alreadyApplied)
+                .winnerUsername(raffle.getWinner() != null ? raffle.getWinner().getUserName() : null)
                 .build();
     }
 
