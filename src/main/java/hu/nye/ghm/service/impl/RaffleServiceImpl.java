@@ -18,10 +18,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -67,8 +64,25 @@ public class RaffleServiceImpl implements RaffleService {
     }
 
     @Override
+    @Transactional
     public void drawRaffle(Long raffleId) {
-        throw new RuntimeException("drawRaffle is not implemented");
+        Optional<Raffle> raffleOpt = raffleRepository.findById(raffleId);
+        if (raffleOpt.isEmpty()) {
+            throw new RuntimeException("Cannot find raffle with ID");
+        }
+        Raffle raffle = raffleOpt.get();
+        if (raffle.isClosed()) {
+            System.err.println("The raffle is already closed!");
+        }
+
+        List<RaffleUser> players = raffle.getPlayers();
+        if (!players.isEmpty()) {
+            int selectedPlayerIndex = new Random().nextInt(0, players.size());
+            raffle.setWinner(players.get(selectedPlayerIndex));
+        }
+
+        raffle.setClosed(true);
+        raffleRepository.save(raffle);
     }
 
     @Override
