@@ -39,23 +39,6 @@ public interface RaffleService {
     void closeRaffle(Long raffleId);
 
     /**
-     * Meglévő nyeremény hozzárendelése a tombolához
-     *
-     * @param raffleId Tombola azonosító
-     * @param prizeId  Nyeremény azonosító
-     */
-    void addPrizeToRaffle(Long raffleId, Long prizeId);
-
-    /**
-     * Új nyeremény hozzárendelése a tombolához. A folyamat során a nyeremény nevével létre lesz hozva egy új
-     * nyeremény, majd az hozzárendelve a tombolához.
-     *
-     * @param raffleId  Tombola azonosító
-     * @param prizeName Nyeremény azonosító
-     */
-    void addNewPrizeToRaffle(Long raffleId, String prizeName);
-
-    /**
      * A kapott ID alapján visszaadja a Raffle-ből késztített DTO-t ha van ilyen.
      *
      * @param id - Raffle ID

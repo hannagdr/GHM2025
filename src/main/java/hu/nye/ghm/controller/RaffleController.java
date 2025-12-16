@@ -32,6 +32,12 @@ public class RaffleController {
         return "home";
     }
 
+    /**
+     * Új Raffle létrehozása
+     *
+     * @param model A template mögött lévő Model osztály
+     * @return A template neve
+     */
     @GetMapping("/raffle")
     public String newRaffle(Model model) {
         model.addAttribute("raffle", new RaffleDTO());
@@ -39,6 +45,13 @@ public class RaffleController {
         return "raffle";
     }
 
+    /**
+     * Raffle szerkesztése
+     *
+     * @param raffleId Raffle azonosító
+     * @param model    A template mögött lévő Model osztály
+     * @return
+     */
     @GetMapping("/raffle/{id}/edit")
     public String editRaffle(@PathVariable("id") Long raffleId, Model model) {
         model.addAttribute("raffle", raffleService.getRaffleViewData(raffleId));
@@ -46,6 +59,13 @@ public class RaffleController {
         return "raffle";
     }
 
+    /**
+     * Raffle megtekintése
+     *
+     * @param raffleId Raffle azonosító
+     * @param model    A template mögött lévő Model osztály
+     * @return
+     */
     @GetMapping("/raffle/{id}")
     public String viewRaffle(@PathVariable("id") Long raffleId, Model model) {
         model.addAttribute("raffle", raffleService.getRaffleViewData(raffleId));
@@ -55,7 +75,7 @@ public class RaffleController {
     /**
      * A kapott paraméter alapján létrehozza a Tombolát, és visszatér a főoldalra.
      *
-     * @param raffle Az új Tombolának a neve
+     * @param raffle Az új Raffle a neve
      */
     @PostMapping("/raffle")
     public String saveRaffle(@ModelAttribute RaffleDTO raffle) {
@@ -66,8 +86,9 @@ public class RaffleController {
     /**
      * A jelentkező felhasználót hozzáírja a tombolához
      *
-     * @param raffleId      A tombola azonosítója
+     * @param raffleId      A Raffle azonosítója
      * @param userPrincipal A felhasználó adatai
+     * @param request       A HTTP hívás részleteit tartalmazó objektum
      */
     @PostMapping("/raffle/{id}/apply")
     public String applyToRaffle(@PathVariable("id") Long raffleId, Principal userPrincipal, HttpServletRequest request) {
