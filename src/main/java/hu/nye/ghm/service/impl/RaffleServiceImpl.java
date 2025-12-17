@@ -73,6 +73,7 @@ public class RaffleServiceImpl implements RaffleService {
         Raffle raffle = raffleOpt.get();
         if (raffle.isClosed()) {
             System.err.println("The raffle is already closed!");
+            return;
         }
 
         List<RaffleUser> players = raffle.getPlayers();
@@ -133,7 +134,7 @@ public class RaffleServiceImpl implements RaffleService {
                 .anyMatch(raffleUser -> Objects.equals(currentUserName, raffleUser.getUserName()));
     }
 
-    private String getCurrentUserName() {
+    protected String getCurrentUserName() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth == null) {
             throw new RuntimeException("No authentication context found");

@@ -9,6 +9,7 @@ import java.util.List;
 @Getter
 @Setter
 @Builder
+@EqualsAndHashCode
 @Entity(name = "RAFFLE")
 @NoArgsConstructor
 @AllArgsConstructor
