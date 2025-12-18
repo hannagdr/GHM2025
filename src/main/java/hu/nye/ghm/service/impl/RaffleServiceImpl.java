@@ -128,6 +128,21 @@ public class RaffleServiceImpl implements RaffleService {
                 .build();
     }
 
+    @Override
+    public RaffleDTO getRaffleEditData(Long id) {
+        Optional<Raffle> raffleOpt = raffleRepository.findById(id);
+        if (raffleOpt.isEmpty()) {
+            throw new RuntimeException("No raffle found with id");
+        }
+        Raffle raffle = raffleOpt.get();
+
+        return RaffleDTO.builder()
+                .name(raffle.getName())
+                .prizeId(raffle.getPrize().getId())
+                .id(raffle.getId())
+                .build();
+    }
+
     private boolean isUserAlreadyApplied(Raffle raffle) {
         String currentUserName = getCurrentUserName();
         return raffle.getPlayers().stream()

@@ -54,7 +54,7 @@ public class RaffleController {
      */
     @GetMapping("/raffle/{id}/edit")
     public String editRaffle(@PathVariable("id") Long raffleId, Model model) {
-        model.addAttribute("raffle", raffleService.getRaffleViewData(raffleId));
+        model.addAttribute("raffle", raffleService.getRaffleEditData(raffleId));
         model.addAttribute("prizes", prizeService.getPrizesForComboBox());
         return "raffle";
     }

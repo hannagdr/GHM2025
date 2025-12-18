@@ -249,4 +249,25 @@ class RaffleServiceImplTest {
         assertEquals(raffleOpen.getName(), raffleListTableDTO.name());
         assertEquals(raffleOpen.isClosed(), raffleListTableDTO.closed());
     }
+
+    @Test
+    @DisplayName("Edit Raffle - Raffle not found")
+    void editRaffleNotFound() {
+        when(this.raffleRepository.findById(any())).thenReturn(Optional.empty());
+        assertThrows(RuntimeException.class, () -> this.raffleService.getRaffleEditData(1L));
+    }
+
+    @Test
+    @DisplayName("Edit Raffle")
+    void editRaffle() {
+        long prizeId = 2L;
+        long raffleId = 1L;
+        String raffleName = "RaffleTest";
+        when(this.raffleRepository.findById(eq(raffleId))).thenReturn(Optional.of(Raffle.builder().id(raffleId).name(raffleName).prize(Prize.builder().id(prizeId).build()).build()));
+
+        RaffleDTO raffleEditData = this.raffleService.getRaffleEditData(1L);
+        assertEquals(prizeId, raffleEditData.getPrizeId());
+        assertEquals(raffleId, raffleEditData.getId());
+        assertEquals(raffleName, raffleEditData.getName());
+    }
 }
