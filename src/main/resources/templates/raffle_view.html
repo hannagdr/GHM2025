@@ -57,7 +57,7 @@
         <div class="d-flex flex-column gap-2">
             <div class="form-control bg-light text-center not-winner"
                  sec:authorize="!hasRole('ADMIN')"
-                 th:hidden="${#authentication.getName().equals(raffle.getWinnerUsername())}"
+                 th:hidden="${#authentication.getName().equals(raffle.getWinnerUsername()) || !raffle.isAlreadyApplied()}"
                  th:text="|Unfortunately, you did not win this time.|">
                 user.someone.else.won
             </div>

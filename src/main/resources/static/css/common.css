@@ -86,10 +86,10 @@
     border-color: #dcbe8a;
 }
 
-.btn-info:hover {
-    background-color: #daa54c;
-    color: #2a2e39;
-    border-color: #daa54c;
+.btn-info:hover, .btn-info:active {
+    background-color: #daa54c !important;
+    color: #2a2e39 !important;
+    border-color: #daa54c !important;
 }
 
 #raffle_name {
@@ -115,14 +115,6 @@
     border-width: 1px;
     border-style: solid;
 }
-
-/*#raffle-result-info {*/
-/*    color: #1a1d23;*/
-/*    background-color: #8790ae !important;*/
-/*    border-color: #8790ae;*/
-/*    border-width: 1px;*/
-/*    border-style: solid;*/
-/*}*/
 
 #applicant_list .bg-light {
     color: #383d4a;
