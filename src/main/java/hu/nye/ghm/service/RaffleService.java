@@ -47,6 +47,14 @@ public interface RaffleService {
     RaffleViewDTO getRaffleViewData(Long id);
 
     /**
+     * A kapott ID alapján visszaadja a Raffle-ből késztített DTO-t ha van ilyen.
+     *
+     * @param id - Raffle ID
+     * @return A létező RaffleDTO
+     */
+    RaffleDTO getRaffleEditData(Long id);
+
+    /**
      * Megkeresi a kapott ID és felhasználónév alapján a Raffle-t és RaffleUser-t. Amennyiben mind a kettő létezik,
      * hozzáadja a User-t a játékosokhoz.
      *

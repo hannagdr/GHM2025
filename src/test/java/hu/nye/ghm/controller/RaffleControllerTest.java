@@ -59,7 +59,7 @@ class RaffleControllerTest {
         verify(model).addAttribute(eq("raffle"), any());
         verify(model).addAttribute(eq("prizes"), anyList());
 
-        verify(this.raffleService).getRaffleViewData(any());
+        verify(this.raffleService).getRaffleEditData(any());
         verify(this.prizeService).getPrizesForComboBox();
         assertEquals("raffle", newRaffle);
     }

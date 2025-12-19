@@ -17,11 +17,13 @@
         <!-- Text inputs -->
         <div class="col-md-9">
             <div class="d-flex flex-column gap-2">
-                <div class="form-control bg-light" th:text="${raffle.name}">raffle.name</div>
-                <div class="form-control bg-light" th:text="|Prize: ${raffle.prize.name} (${raffle.prize.category})|">
+                <div id="raffle_name" class="form-control bg-light" th:text="${raffle.name}">raffle.name</div>
+                <div id="prize_name" class="form-control bg-light"
+                     th:text="|Prize: ${raffle.prize.name} (${raffle.prize.category})|">
                     prize.name
                 </div>
-                <div class="form-control bg-light" th:text="|Number of applicants: ${raffle.playerNames.size()}|">
+                <div id="applicant_info" class="form-control bg-light"
+                     th:text="|Number of applicants: ${raffle.playerNames.size()}|">
                     raffle.applicants
                 </div>
             </div>
@@ -45,12 +47,13 @@
                     th:disabled="${raffle.isAlreadyApplied()}"
                     th:classappend="${raffle.closed} ? 'disabled' : ''"
                     th:hidden="${(#authorization.expression('hasRole(''ADMIN'')')) && !raffle.closed}"
-                    th:text="${!raffle.closed} ? 'Apply' : (${raffle.canceled} ? 'Canceled' : 'Closed')">button.apply
+                    th:text="${!raffle.closed} ? (${raffle.isAlreadyApplied() ? 'Applied' : 'Apply'}) : (${raffle.canceled} ? 'Canceled' : 'Closed')">
+                button.apply
             </button>
             <a th:href="@{/}" class="btn btn-secondary">Back</a>
         </div>
     </div>
-    <div class="row mb-3" th:hidden="${raffle.winnerUsername == null}">
+    <div id="raffle-result-info" class="row mb-3" th:hidden="${raffle.winnerUsername == null}">
         <div class="d-flex flex-column gap-2">
             <div class="form-control bg-light text-center"
                  sec:authorize="!hasRole('ADMIN')"
@@ -70,7 +73,7 @@
             </div>
         </div>
     </div>
-    <div class="row" sec:authorize="hasRole('ADMIN')">
+    <div id="applicant_list" class="row" sec:authorize="hasRole('ADMIN')">
         <div class="col">
             <div class="border rounded p-3 bg-light">
                 <h5>List of applicants</h5>
