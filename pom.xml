@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>hu.nye</groupId>
-    <artifactId>GHM</artifactId>
+    <artifactId>GHM2025</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>GHM2025</name>
     <description>GHM2025</description>
@@ -208,7 +208,7 @@
                                         <limit>
                                             <counter>LINE</counter>
                                             <value>COVEREDRATIO</value>
-                                            <minimum>0.0</minimum>
+                                            <minimum>0.7</minimum>
                                         </limit>
                                     </limits>
                                 </rule>
