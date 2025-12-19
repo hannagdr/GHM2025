@@ -9,3 +9,152 @@
     border-color: #99E600;
     color: black;
 }
+
+.apply-button.disabled,
+.apply-button[disabled]{
+    background-color: #bec4dc;
+    border-color: #878787;
+    color: #323232;
+    opacity: 0.5 !important;
+}
+
+.bg-light {
+    background-color: #555b6e !important;
+}
+
+.card {
+    --bs-card-border-color: #7b839e;
+}
+
+.card-body {
+    background-color: #7b839e;
+    color: white;
+    border-radius: 4px;
+    border-color: #7b839e;
+    padding-bottom: 8px;
+}
+
+.btn-primary {
+    background-color: #7a8ab1;
+    color: white;
+    border-color: #b1c0e8;
+}
+
+.btn-primary:hover, .btn.btn-primary:active {
+    background-color: #5e6b8a !important;
+    color: white !important;
+    border-color: #5e6b8a !important;
+}
+
+.btn-outline-primary {
+    background-color: #7a8ab1;
+    color: white;
+    border-color: #b1c0e8;
+}
+
+.btn-outline-primary:hover, .btn-outline-primary:active {
+    background-color: #5e6b8a !important;
+    color: white !important;
+    border-color: #5e6b8a !important;
+}
+
+.btn-secondary {
+    background-color: #48555e;
+    color: white;
+    border-color: #96a7b5;
+}
+
+.btn-secondary:hover, .btn-secondary:active {
+    background-color: #343d43 !important;
+    color: white !important;
+    border-color: #343d43 !important;
+}
+
+.table-dark {
+    --bs-table-bg: #484e60;
+}
+
+.table-hover tbody tr td, .table-hover tbody tr th {
+    background-color: #a1accf;
+    border-color: #484e60;
+    color: #1a1d23;
+}
+
+.btn-info {
+    background-color: #dcbe8a;
+    color: #2a2e39;
+    border-color: #dcbe8a;
+}
+
+.btn-info:hover {
+    background-color: #daa54c;
+    color: #2a2e39;
+    border-color: #daa54c;
+}
+
+#raffle_name {
+    color: #1a1d23;
+    background-color: #8790ae !important;
+    border-color: #8790ae;
+    border-width: 1px;
+    border-style: solid;
+}
+
+#prize_name {
+    color: #1a1d23;
+    background-color: #8790ae !important;
+    border-color: #8790ae;
+    border-width: 1px;
+    border-style: solid;
+}
+
+#applicant_info {
+    color: #1a1d23;
+    background-color: #8790ae !important;
+    border-color: #8790ae;
+    border-width: 1px;
+    border-style: solid;
+}
+
+/*#raffle-result-info {*/
+/*    color: #1a1d23;*/
+/*    background-color: #8790ae !important;*/
+/*    border-color: #8790ae;*/
+/*    border-width: 1px;*/
+/*    border-style: solid;*/
+/*}*/
+
+#applicant_list .bg-light {
+    color: #383d4a;
+    background-color: #8790ae !important;
+    border-color: #8790ae !important;
+}
+
+#applicant_list .list-group-item {
+    background-color: #a1accf;
+    color: #1a1d23;
+}
+
+#applicant_list .list-group-item {
+    margin-bottom: 4px;
+    border-radius: 8px;
+}
+
+.form-control.bg-light.text-center {
+    background-color: #a7afc8;
+}
+
+.not-winner {
+    color: #6a1318;
+    background-color: #ca767e !important;
+}
+
+.winner {
+    color: #2a4726;
+    background-color: #6bb560 !important;
+}
+
+.admin {
+    color: #70511a;
+    background-color: #dcbe8a !important;
+}
