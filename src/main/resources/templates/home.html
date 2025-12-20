@@ -64,7 +64,7 @@
                     </div>
                     <div class="d-flex mt-3"
                          th:classappend="${#authorization.expression('hasRole(''ADMIN'')')} ? 'justify-content-between' : 'justify-content-end'">
-                        <!-- View Winners button on the left -->
+                        <!-- Create Raffle button -->
                         <a id="create-raffle-button" sec:authorize="hasRole('ADMIN')" th:href="@{/raffle}"
                            class="btn btn-info">Create Raffle</a>
 

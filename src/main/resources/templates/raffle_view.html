@@ -55,18 +55,18 @@
     </div>
     <div id="raffle-result-info" class="row mb-3" th:hidden="${raffle.winnerUsername == null}">
         <div class="d-flex flex-column gap-2">
-            <div class="form-control bg-light text-center"
+            <div class="form-control bg-light text-center not-winner"
                  sec:authorize="!hasRole('ADMIN')"
-                 th:hidden="${#authentication.getName().equals(raffle.getWinnerUsername())}"
+                 th:hidden="${#authentication.getName().equals(raffle.getWinnerUsername()) || !raffle.isAlreadyApplied()}"
                  th:text="|Unfortunately, you did not win this time.|">
                 user.someone.else.won
             </div>
-            <div class="form-control bg-light text-center"
+            <div class="form-control bg-light text-center winner"
                  sec:authorize="!hasRole('ADMIN')"
                  th:hidden="${!#authentication.getName().equals(raffle.getWinnerUsername())}"
                  th:text="|Congratulations, you WON!|">user.actual.won
             </div>
-            <div class="form-control bg-light text-center"
+            <div class="form-control bg-light text-center admin"
                  sec:authorize="hasRole('ADMIN')"
                  th:hidden="${!(raffle.closed && raffle.winnerUsername != null)}"
                  th:text="|The winner is: ${raffle.winnerUsername}|">admin.who.won
